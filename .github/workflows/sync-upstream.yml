@@ -1,5 +1,5 @@
 
-name: Sync CADCraft from Upstream
+name: Sync from Upstream
 
 on:
   schedule:
@@ -10,12 +10,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: sync-cadcraft-upstream
+  group: sync-upstream
   cancel-in-progress: false
 
 jobs:
   sync:
-    name: Sync main branch
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +32,7 @@ jobs:
       - name: Fetch original repository
         run: |
           git remote add upstream \
-            https://github.com/storytold/cadcraft.git
+            https://github.com/storytold/deckcraft.git
           git fetch upstream main
 
       - name: Fast-forward to upstream main
@@ -41,6 +40,5 @@ jobs:
           git checkout main
           git merge --ff-only upstream/main
 
-      - name: Push changes to personal repository
-        run: |
-          git push origin main
+      - name: Push updates
+        run: git push origin main
